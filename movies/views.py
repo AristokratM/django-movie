@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic import DetailView, ListView
 from .models import Movie
@@ -19,11 +19,14 @@ class MovieDetailView(DetailView):
 class AddReview(View):
     """Додати відгук"""
     def post(self, request, pk):
+        print(request.POST)
         form = ReviewForm(request.POST)
         movie = Movie.objects.get(pk=pk)
+        print(movie)
         if form.is_valid():
             form = form.save(commit=False)
             form.movie = movie
             form.save()
+            print(form)
         return redirect(movie.get_absolut_url())
 

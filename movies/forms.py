@@ -6,5 +6,5 @@ class ReviewForm(forms.ModelForm):
     """Форма відгуків"""
     class Meta:
         model = Reviews
-        fields = ('name', 'email', 'text')
+        fields = ('name', 'email', 'text', 'parent')
 
