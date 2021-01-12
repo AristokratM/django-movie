@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 
 urlpatterns = [
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('', include('movies.urls')),
 ]
