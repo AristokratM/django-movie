@@ -51,6 +51,7 @@ class MovieAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     list_filter = ('year', 'draft',)
     search_fields = ('title', 'category__name')
+    actions = ["publish", "un_publish"]
     inlines = [MovieShotsInline, ReviewInline, ]
     save_on_top = True
     save_as = True
@@ -78,6 +79,28 @@ class MovieAdmin(admin.ModelAdmin):
             "fields": (('slug', 'draft'),)
         }),
     )
+
+    def publish(self, request, queryset):
+        row_update = queryset.update(draft=False)
+        if row_update == 1:
+            message_bit = "1 фільм було опубліковано"
+        else:
+            message_bit = f"{row_update} фільмів було опубліковано"
+        self.message_user(request, message_bit)
+
+    def un_publish(self, request, queryset):
+        row_update = queryset.update(draft=True)
+        if row_update == 1:
+            message_bit = "1 фільм було знято з публікації"
+        else:
+            message_bit = f"{row_update} фільмів було знято з публікації"
+        self.message_user(request, message_bit)
+
+    publish.short_description = "Опублікувати"
+    publish.allowed_permission = ('change',)
+
+    un_publish.short_description = "Зняти з публікації"
+    un_publish.allowed_permission = ('change',)
 
     def get_poster(self, obj):
         return mark_safe(f"<img src={obj.poster.url} width=50 height=60/>")
