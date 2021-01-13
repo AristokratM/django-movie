@@ -1,9 +1,11 @@
 from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic import DetailView, ListView
-from .models import Movie
+from .models import Movie, Actor
 from .forms import ReviewForm
 from .mixins import CategoriesMixin
+
+
 # Create your views here.
 
 
@@ -19,6 +21,7 @@ class MovieDetailView(DetailView):
 
 class AddReview(View):
     """Додати відгук"""
+
     def post(self, request, pk):
         print(request.POST)
         form = ReviewForm(request.POST)
@@ -31,3 +34,9 @@ class AddReview(View):
             print(form)
         return redirect(movie.get_absolut_url())
 
+
+class ActorView(DetailView):
+    """Детальна інформація про актора"""
+    model = Actor
+    template_name = "movies/actor.html"
+    slug_field = "name"
