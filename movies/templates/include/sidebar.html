@@ -12,14 +12,14 @@
     </form>
 </div>
 <!--preference -->
-<form action="{% url 'filter_movies' %}" method="GET">
+<form action="{% url 'json_filter' %}" method="GET" name="filter">
 <div class="left-side my-4">
     <h3 class="sear-head editContent" style="outline: none; cursor: inherit;">
         Жанры</h3>
     <ul class="w3layouts-box-list">
         {% for genre in view.get_genres %}
         <li class="editContent" style="outline: none; cursor: inherit;">
-            <input type="checkbox" class="checked" name="genre" value="{{ genre.name }}">
+            <input type="checkbox" class="checked" name="genre" value="{{ genre.pk }}">
             <span class="span editContent"
                   style="outline: none; cursor: inherit;">{{ genre.name }}</span>
         </li>
