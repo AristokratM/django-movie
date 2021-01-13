@@ -3,6 +3,7 @@ from django.views.generic.base import View
 from django.views.generic import DetailView, ListView
 from .models import Movie
 from .forms import ReviewForm
+from .mixins import CategoriesMixin
 # Create your views here.
 
 
